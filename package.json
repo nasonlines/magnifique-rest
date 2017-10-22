@@ -1,0 +1,26 @@
+{
+  "name": "magnifique-rest",
+  "version": "0.0.1",
+  "description": "This is a perfect restful client for nodejs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nasonlines/magnifique-rest.git"
+  },
+  "keywords": [
+    "restful",
+    "http",
+    "nasonlines",
+    "queue",
+    "bandwidth"
+  ],
+  "author": "NasOnlines",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nasonlines/magnifique-rest/issues"
+  },
+  "homepage": "https://github.com/nasonlines/magnifique-rest#readme"
+}
