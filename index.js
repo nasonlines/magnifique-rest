@@ -1,0 +1,58 @@
+'use strict';
+
+/* CONFIG AREA */
+var _DEFAULT_UPLOAD_BANDWIDTH_LIMIT_ = 1000000000
+
+const fs      = require('fs');
+var Throttle  = require('throttle');
+var request   = require('request');
+var events    = require('events');
+var bandwidth_limit = new Throttle(_DEFAULT_UPLOAD_BANDWIDTH_LIMIT_);
+
+class Rest {
+    constructor(bandwidth_limit = _DEFAULT_UPLOAD_BANDWIDTH_LIMIT_){
+      this.bandwidth_limit = new Throttle(bandwidth_limit);
+    }
+
+    GET(options) {
+      var self = this
+      request(options, function (error, response, body) {
+        let globalResponse = {
+          error:error,
+          response:response,
+          body:body
+        }
+        self.emit('finish', globalResponse);
+      })
+    }
+
+    /*POST(options, pathFile){
+      var self = this
+      fs.createReadStream(pathFile).pipe(this.bandwidth_limit).pipe(
+        request.post(options, function (error, response, body){
+          let globalResponse = {
+            error:error,
+            response:response,
+            body:body
+          }
+          self.emit('finish', globalResponse);
+        })
+      )
+    }*/
+
+    POST(options){
+      var self = this
+      request.post(options, function(error, response, body){
+        let globalResponse = {
+          error:error,
+          response:response,
+          body:body
+        }
+        self.emit('finish', globalResponse);
+      }).pipe(this.bandwidth_limit)
+    }
+
+}
+
+Rest.prototype.__proto__ = events.EventEmitter.prototype;
+module.exports = Rest;
