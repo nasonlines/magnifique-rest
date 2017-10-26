@@ -26,9 +26,11 @@ class Rest {
       })
     }
 
-    /*POST(options, pathFile){
+    POST(options, body){
       var self = this
-      fs.createReadStream(pathFile).pipe(this.bandwidth_limit).pipe(
+      var strStream = require('string-to-stream')
+
+      strStream(body).pipe(this.bandwidth_limit).pipe(
         request.post(options, function (error, response, body){
           let globalResponse = {
             error:error,
@@ -38,20 +40,7 @@ class Rest {
           self.emit('finish', globalResponse);
         })
       )
-    }*/
-
-    POST(options){
-      var self = this
-      request.post(options, function(error, response, body){
-        let globalResponse = {
-          error:error,
-          response:response,
-          body:body
-        }
-        self.emit('finish', globalResponse);
-      }).pipe(this.bandwidth_limit)
     }
-
 }
 
 Rest.prototype.__proto__ = events.EventEmitter.prototype;
