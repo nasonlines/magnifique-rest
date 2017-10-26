@@ -1,7 +1,7 @@
 {
   "name": "magnifique-rest",
   "version": "0.0.1",
-  "description": "This is a perfect restful client for nodejs.",
+  "description": "This is a perfect request wrapper for nodejs.",
   "main": "index.js",
   "scripts": {
     "start": "index.js",
